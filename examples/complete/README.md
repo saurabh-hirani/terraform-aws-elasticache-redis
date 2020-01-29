@@ -24,7 +24,18 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
     export TF_STATE_S3=aws-elasticache-state-bucket
     ```
 
-3. Create the necessary security groups
+3. Update the relevant vpc_id, availability_zones and subnet_ids in ```common.tfvars```
+
+    ```sh
+    vpc_id             = "vpc-xxxx"
+    availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+    subnet_ids         = "subnet-xxxx,subnet-yyyy,subnet-zzzz"
+    ```
+
+    The subnets should be private subnets in the right AZs corersponding to the values in ```availability_zones```
+    and belonging to ```vpc_id``` 
+
+4. Create the necessary security groups
 
     ```sh
     cd - && cd base/security_groups
@@ -51,7 +62,7 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
     You may very well skip the bastion and admin security group in case you have a different AWS setup. The important thing to
     note is that the **elasticache** security group will be referrred to as a remote state item when creating the clusters.
 
-4. Create the necessary subnet groups
+5. Create the necessary subnet groups
 
     ```sh
     cd - && cd base/subnet_groups
@@ -67,7 +78,7 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
 
     The **subnet_ids** will be referred to as a remote state item when creating the clusters.
 
-5. Create AWS Elasticache Redis with cluster mode disabled targeting the replica node
+6. Create AWS Elasticache Redis with cluster mode disabled targeting the replica node
 
     ```sh
     cd - && cd redis_cluster_mode_disabled_target_replica
@@ -115,7 +126,7 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
 
     if you want to destroy this setup.
 
-6. Create AWS Elasticache Redis with cluster mode disabled targeting the primary node
+7. Create AWS Elasticache Redis with cluster mode disabled targeting the primary node
 
     ```sh
     cd - && cd redis_cluster_mode_disabled_target_primary
@@ -163,7 +174,7 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
 
     if you want to destroy this setup.
 
-7. Create AWS Elasticache Redis with cluster mode disabled targeting the primary and replica node
+8. Create AWS Elasticache Redis with cluster mode disabled targeting the primary and replica node
 
     ```sh
     cd - && cd redis_cluster_mode_disabled_target_primary_replica
@@ -219,7 +230,7 @@ Sample Terraform infrastructure to demonstrate different AWS Elasticache Redis s
 
     if you want to destroy this setup.
 
-8. Create AWS Elasticache Redis with cluster mode enabled setup - 2 shards (0001 and 0002), 3 nodes per shard. We cannot assign AZ
+9. Create AWS Elasticache Redis with cluster mode enabled setup - 2 shards (0001 and 0002), 3 nodes per shard. We cannot assign AZ
    specifically to primary/replica node as it is decided by AWS at runtime.
 
     ```sh
