@@ -2,7 +2,7 @@
 
 Terraform module for AWS Elasticache Redis cluster mode enabled/disabled setup.
 
-## Why
+## Why?
 
 There are [many](https://github.com/search?q=aws+elasticache) AWS Elasticache Redis Terraform modules. Why do you need
 another one?
